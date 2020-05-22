@@ -4,16 +4,16 @@ public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Joueur j1 = new Joueur();
-		Characters LapinGarou = new Characters();
+		PNJ LapinGarou = new LapinBasiqueAvecUnCouteau();
 		//System.out.println(Teddy.getPA());
 		//System.out.println(Teddy.getadresse());
 		Terrain tester = new Terrain(10);
 		//tester.affiche();
-		tester.tab[4][4]= j1.getSymb();
-		tester.tab[3][3]= LapinGarou.getSymb();
+		tester.placerJoueur(j1);
+		tester.tab[3][3].setpnj(LapinGarou);;
 		tester.affiche();
 		j1.getStat();
-		j1.Attaquer();
+		//j1.Attaquer();
 		//Teddy.deplacement(2);
 		 
 		

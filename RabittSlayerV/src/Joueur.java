@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Joueur extends Characters{
+public class Joueur {
 	private String symb = "J";
 	private int PA;
 	private int adresse=0;
@@ -9,6 +9,7 @@ public class Joueur extends Characters{
 	private int resistance=0;
 	private int Degreaat=18;
 	public Equipement equipement[]= new Equipement[2];
+	private Case position;
 	
 	public Joueur() {
 		equipement[0]= new EpeeSimple();
@@ -104,8 +105,41 @@ public class Joueur extends Characters{
 		nb = min+random.nextInt(max-min);
 		return nb;
 	}
-	public void Attaquer() {
-		System.out.println(Alea(1,6));
+	public int[] Calcul(int i) {
+		int tab[]= new int[2];
+		int temp = 0;
+		while ((i-3)>0) {
+			temp= temp+1;
+			i = i-3;
+		}
+		tab[0]=temp;
+		tab[1]= i;
+		return tab;
+		
 	}
+	public void Attaquer(PNJ en) {
+		int[] a =Calcul(this.adresse);
+		int[] b = Calcul(this.equipement[0].getManiabilité());
+		int[] c = new int[2];
+		c[0]= a[0]+b[0];
+		c[1]= a[1]+b[1];
+		System.out.println(toString(c[0])+" D + "+toString(c[1]));
+		int total=0;
+		while (c[0]>0) {
+			total = total+ Alea(1,6);
+			c[0]=c[0]-1;
+		}
+		total= total+c[1];
+		System.out.println(total);
+	}
+
+	public Case getPosition() {
+		return position;
+	}
+
+	public void setPosition(Case position) {
+		this.position = position;
+	}
+
 	
 }
