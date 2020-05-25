@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 
 public class Test {
 	
+	private static Object List;
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Joueur j1 = new Joueur();
@@ -13,6 +16,9 @@ public class Test {
 		tester.tab[3][3].setpnj(LapinGarou);;
 		tester.affiche();
 		j1.getStat();
+		ArrayList<PNJ> myList = new ArrayList<PNJ>();
+		myList=tester.DetectPNJ(j1);
+		System.out.println(myList);
 		//j1.Attaquer();
 		//Teddy.deplacement(2);
 		 

@@ -9,7 +9,7 @@ public class Joueur {
 	private int resistance=0;
 	private int Degreaat=18;
 	public Equipement equipement[]= new Equipement[2];
-	private Case position;
+	private int[] position;
 	
 	public Joueur() {
 		equipement[0]= new EpeeSimple();
@@ -117,7 +117,8 @@ public class Joueur {
 		return tab;
 		
 	}
-	public void Attaquer(PNJ en) {
+	public void Attaquer() {
+
 		int[] a =Calcul(this.adresse);
 		int[] b = Calcul(this.equipement[0].getManiabilité());
 		int[] c = new int[2];
@@ -133,12 +134,13 @@ public class Joueur {
 		System.out.println(total);
 	}
 
-	public Case getPosition() {
+	public int[] getPosition() {
 		return position;
 	}
 
-	public void setPosition(Case position) {
-		this.position = position;
+	public void setPosition(int position, int pos) {
+		this.position[0]=position;
+		this.position[1]=pos;
 	}
 
 	

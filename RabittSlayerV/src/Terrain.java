@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Terrain {
 	private Joueur j;
@@ -32,12 +34,39 @@ public class Terrain {
 	      }
 	      System.out.println();
 	}
-	public boolean caseadjPnj() {
-		return true;
-	}
 	public void placerJoueur(Joueur j) {
 		int a =j.Alea(this.taille-(this.taille+1), this.taille);
 		int b = j.Alea(this.taille-(this.taille+1), this.taille);
 		this.tab[a][b].setJoueur(j);
+	}
+	public ArrayList<PNJ> DetectPNJ(Joueur P) {
+		int[] temp2= P.getPosition();
+		int i = temp2[0];
+		int j = temp2[1];
+		ArrayList<PNJ> myList = new ArrayList<PNJ>();
+		int temp =i-1;
+		while ( temp<= i+1 ) {
+			int compteur=0;
+			if (tab[i][j].pnj != null && compteur != 1) {
+			myList.add(tab[i][j].getpnj());
+			}
+			if (compteur ==1) {
+				if (tab[i][j-1].pnj != null) {
+					myList.add(tab[i][j-1].getpnj());
+				}
+				if (tab[i][j+1].pnj != null) {
+					myList.add(tab[i][j+1].getpnj());
+					
+				}
+				
+			if (tab[i+1][j].pnj != null && compteur !=1) {
+				myList.add(tab[i+1][j].getpnj());
+			}
+			}
+			compteur=compteur+1;
+
+		}
+		return myList;
+		
 	}
 }
