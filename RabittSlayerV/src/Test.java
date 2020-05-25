@@ -20,7 +20,7 @@ public class Test {
 		tester.tab[7][5].setpnj(LapinGarou);;
 		tester.affiche();
 		j1.getStat();
-		j1.Attaquer();
+		//j1.Attaquer();
 		//Teddy.deplacement(2);
 		 
 		
