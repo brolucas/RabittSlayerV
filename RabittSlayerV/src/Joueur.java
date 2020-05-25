@@ -125,14 +125,8 @@ public class Joueur {
 	}
 	public void detecter() {
 		ArrayList<PNJ> temp = new ArrayList<PNJ>();
-		this.ennemie = temp;
-	}
-	public int compter() {
-		int compteur=0;
-		for(PNJ e:ennemie) {
-			compteur= compteur +1;
-		}
-		return compteur;
+		temp =t.DetectPNJ(this);
+		setennemie(temp);
 	}
 	public void parcourir() {
 		int i =0;
@@ -144,7 +138,7 @@ public class Joueur {
 	public void Attaquer() {
 		
 		this.detecter();
-		if (compter() ==0 ) {
+		if (this.ennemie.isEmpty() ) {
 			System.out.println("Pas d'ennemie atteignable");
 			return;
 		}
@@ -176,6 +170,12 @@ public class Joueur {
 	public void setPosition(int position, int pos) {
 		this.position[0]=position;
 		this.position[1]=pos;
+	}
+	public ArrayList<PNJ> getEnnemie(){
+		return this.ennemie;
+	}
+	public void setennemie(ArrayList<PNJ>mechant) {
+		this.ennemie = mechant;
 	}
 
 	

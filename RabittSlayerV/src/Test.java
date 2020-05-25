@@ -16,8 +16,8 @@ public class Test {
 		
 		
 		//tester.placerJoueur(j1);
-		tester.tab[4][3].setJoueur(j1);
-		tester.tab[3][3].setpnj(LapinGarou);;
+		tester.tab[6][5].setJoueur(j1);
+		tester.tab[7][5].setpnj(LapinGarou);;
 		tester.affiche();
 		j1.getStat();
 		j1.Attaquer();
