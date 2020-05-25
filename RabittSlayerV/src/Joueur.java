@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Joueur {
+	private Terrain t;
 	private String symb = "J";
 	private int PA;
 	private int adresse=0;
@@ -9,7 +11,8 @@ public class Joueur {
 	private int resistance=0;
 	private int Degreaat=18;
 	public Equipement equipement[]= new Equipement[2];
-	private int[] position;
+	private int[] position = new int[2];
+	private ArrayList<PNJ> ennemie = new ArrayList<PNJ>();
 	
 	public Joueur() {
 		equipement[0]= new EpeeSimple();
@@ -60,6 +63,9 @@ public class Joueur {
 		
 		PA=5;
 		
+	}
+	public void setT(Terrain t) {
+		this.t=t;
 	}
 	
 	public int getPA() {
@@ -117,21 +123,50 @@ public class Joueur {
 		return tab;
 		
 	}
-	public void Attaquer() {
-
-		int[] a =Calcul(this.adresse);
-		int[] b = Calcul(this.equipement[0].getManiabilité());
-		int[] c = new int[2];
-		c[0]= a[0]+b[0];
-		c[1]= a[1]+b[1];
-		System.out.println(toString(c[0])+" D + "+toString(c[1]));
-		int total=0;
-		while (c[0]>0) {
-			total = total+ Alea(1,6);
-			c[0]=c[0]-1;
+	public void detecter() {
+		ArrayList<PNJ> temp = new ArrayList<PNJ>();
+		this.ennemie = temp;
+	}
+	public int compter() {
+		int compteur=0;
+		for(PNJ e:ennemie) {
+			compteur= compteur +1;
 		}
-		total= total+c[1];
-		System.out.println(total);
+		return compteur;
+	}
+	public void parcourir() {
+		int i =0;
+		for (PNJ e:ennemie) {
+			System.out.println(this.ennemie.get(i));
+			i++;
+		}
+	}
+	public void Attaquer() {
+		
+		this.detecter();
+		if (compter() ==0 ) {
+			System.out.println("Pas d'ennemie atteignable");
+			return;
+		}
+		else {
+			int[] a =Calcul(this.adresse);
+			int[] b = Calcul(this.equipement[0].getManiabilité());
+			int[] c = new int[2];
+			c[0]= a[0]+b[0];
+			c[1]= a[1]+b[1];
+			System.out.println(toString(c[0])+" D + "+toString(c[1]));
+			int total=0;
+			while (c[0]>0) {
+				total = total+ Alea(1,6);
+				c[0]=c[0]-1;
+			}
+			total= total+c[1];
+			System.out.println(total);
+			System.out.println("Liste cible possible :");
+			this.parcourir();
+			Scanner sc = new Scanner(System.in);
+			int VD = sc.nextInt();
+		}
 	}
 
 	public int[] getPosition() {

@@ -29,10 +29,12 @@ public class Case {
 	public void setpnj(PNJ t) {
 		this.pnj = t;
 		this.Symb = t.getSymb();
+		t.setPosition(this.i, this.y);
 	}
 	public void setJoueur(Joueur t) {
 		this.j = t;
 		this.Symb = t.getSymb();
+		t.setPosition(this.i, this.y);
 	}
 	public PNJ getpnj() {
 		return this.pnj;

@@ -8,6 +8,7 @@ public abstract class PNJ {
 	int esq;
 	int def;
 	int deg;
+	private int[] position = new int[2];
 	
 	public String getnom() { return this.nom; }
 	protected void setnom(String type) {this.nom = type;}
@@ -39,4 +40,11 @@ public abstract class PNJ {
 	
 	public int getdeg() { return this.deg; }
 	protected void setdeg(int type) {this.deg = type;}
+	public int[] getPosition() {
+		return position;
+	}
+	public void setPosition(int posi , int posy) {
+		this.position[0]= posi;
+		this.position[1]= posy;
+	}
 }

@@ -37,24 +37,27 @@ public class Terrain {
 	public void placerJoueur(Joueur j) {
 		int a =j.Alea(this.taille-(this.taille+1), this.taille);
 		int b = j.Alea(this.taille-(this.taille+1), this.taille);
+		j.setPosition(a, b);
 		this.tab[a][b].setJoueur(j);
+		j.setT(this);
 	}
 	public ArrayList<PNJ> DetectPNJ(Joueur P) {
 		int[] temp2= P.getPosition();
-		int i = temp2[0];
-		int j = temp2[1];
+		int i;
+		int j;
+		i = temp2[0];
+		j = temp2[1];
 		ArrayList<PNJ> myList = new ArrayList<PNJ>();
-		int temp =i-1;
-		while ( temp<= i+1 ) {
-			int compteur=0;
-			if (tab[i][j].pnj != null && compteur != 1) {
+		int compteur=0;
+		while ( compteur <= 2) {
+			if (tab[i][j].getpnj() != null && compteur != 1) {
 			myList.add(tab[i][j].getpnj());
 			}
 			if (compteur ==1) {
-				if (tab[i][j-1].pnj != null) {
+				if (tab[i][j-1].getpnj() != null) {
 					myList.add(tab[i][j-1].getpnj());
 				}
-				if (tab[i][j+1].pnj != null) {
+				if (tab[i][j+1].getpnj() != null) {
 					myList.add(tab[i][j+1].getpnj());
 					
 				}
@@ -64,6 +67,7 @@ public class Terrain {
 			}
 			}
 			compteur=compteur+1;
+			
 
 		}
 		return myList;

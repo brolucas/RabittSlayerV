@@ -12,14 +12,15 @@ public class Test {
 		//System.out.println(Teddy.getadresse());
 		Terrain tester = new Terrain(10);
 		//tester.affiche();
-		tester.placerJoueur(j1);
+		
+		
+		
+		//tester.placerJoueur(j1);
+		tester.tab[4][3].setJoueur(j1);
 		tester.tab[3][3].setpnj(LapinGarou);;
 		tester.affiche();
 		j1.getStat();
-		ArrayList<PNJ> myList = new ArrayList<PNJ>();
-		myList=tester.DetectPNJ(j1);
-		System.out.println(myList);
-		//j1.Attaquer();
+		j1.Attaquer();
 		//Teddy.deplacement(2);
 		 
 		
