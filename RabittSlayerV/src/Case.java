@@ -1,8 +1,9 @@
 
-public class Case {
+public class Case  {
 	PNJ pnj;
 	Joueur j;
 	String Symb;
+	boolean vide;
 	int i;
 	int y;
 	public Case(String t, int i, int y) {
@@ -15,33 +16,38 @@ public class Case {
 		this.Symb = " ";
 		this.i = i;
 		this.y = y;
+		this.vide=true;
 	}
 	public Case(Joueur j, int i, int y) {
 		this.Symb = j.getSymb();
 		this.i = i;
 		this.i = y;
+		this.vide = false;
 	}
 	public Case(PNJ pnj, int i, int y) {
 		this.Symb = pnj.getSymb();
 		this.i = i;
 		this.y = y;
+		this.vide = false;
 	}
 	public void setpnj(PNJ t) {
 		this.pnj = t;
 		this.Symb = t.getSymb();
 		t.setPosition(this.i, this.y);
+		this.vide = false;
 	}
 	public void setJoueur(Joueur t) {
 		this.j = t;
 		this.Symb = t.getSymb();
 		t.setPosition(this.i, this.y);
+		this.vide = false;
 	}
-	public PNJ getpnj() {
+	public PNJ getpnj(){
 		return this.pnj;
 		
 	}
 	public boolean havepnj() {
-		if (pnj != null) {
+		if ( vide = true) {
 			return true;
 		}
 		else {return false;}

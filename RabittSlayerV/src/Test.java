@@ -20,6 +20,9 @@ public class Test {
 		tester.tab[7][5].setpnj(LapinGarou);;
 		tester.affiche();
 		j1.getStat();
+		//tester.DetectPNJ(j1);
+		j1.parcourir();
+		j1.DetectPNJ();
 		//j1.Attaquer();
 		//Teddy.deplacement(2);
 		 

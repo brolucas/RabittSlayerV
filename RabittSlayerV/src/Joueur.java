@@ -64,6 +64,9 @@ public class Joueur {
 		PA=5;
 		
 	}
+	public Terrain gett() {
+		return this.t;
+	}
 	public void setT(Terrain t) {
 		this.t=t;
 	}
@@ -123,21 +126,16 @@ public class Joueur {
 		return tab;
 		
 	}
-	public void detecter() {
-		ArrayList<PNJ> temp = new ArrayList<PNJ>();
-		temp =t.DetectPNJ(this);
-		setennemie(temp);
-	}
 	public void parcourir() {
 		int i =0;
 		for (PNJ e:ennemie) {
-			System.out.println(this.ennemie.get(i));
-			i++;
+			System.out.println(i+" pour :");
+			toStringPNJ(e);
+			
 		}
 	}
 	public void Attaquer() {
-		
-		this.detecter();
+		this.DetectPNJ();
 		if (this.ennemie.isEmpty() ) {
 			System.out.println("Pas d'ennemie atteignable");
 			return;
@@ -157,9 +155,11 @@ public class Joueur {
 			total= total+c[1];
 			System.out.println(total);
 			System.out.println("Liste cible possible :");
+			System.out.println("Taper ");
 			this.parcourir();
 			Scanner sc = new Scanner(System.in);
 			int VD = sc.nextInt();
+			this.ennemie.get(VD);
 		}
 	}
 
@@ -175,7 +175,46 @@ public class Joueur {
 		return this.ennemie;
 	}
 	public void setennemie(ArrayList<PNJ>mechant) {
-		this.ennemie = mechant;
+		ennemie = new ArrayList<PNJ>();
+		for(PNJ e:mechant) {
+			this.ennemie.add(e);	
+		}
+	}
+	public void toStringPNJ(PNJ m) {
+		System.out.println(m.getnom());
+	}
+	public void DetectPNJ()  {
+		int[] temp2 = new int[2];
+		temp2[0] = this.getPosition()[0];
+		temp2[1]= this.getPosition()[1];
+		int i;
+		int j;
+		i = temp2[0];
+		j = temp2[1];
+		ArrayList<PNJ> myList = new ArrayList<PNJ>() ;
+		int compteur=0;
+		while ( compteur <1) {
+			if ( this.t.tab[i-1][j].havepnj() == true) {
+				myList.add(this.t.tab[i-1][j].getpnj());
+			}
+				if (this.t.tab[i][j-1].havepnj() == true)  {
+					myList.add(this.t.tab[i][j-1].getpnj());
+				}
+				if (this.t.tab[i][j+1].havepnj() == true ) {
+					myList.add(this.t.tab[i][j+1].getpnj());
+					
+				}
+				
+			if (this.t.tab[i+1][j].havepnj() == true ) {
+				myList.add(this.t.tab[i+1][j].getpnj());
+			}
+			
+			compteur=compteur+1;
+			
+
+		}
+		this.setennemie(myList);
+		
 	}
 
 	

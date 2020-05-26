@@ -41,37 +41,5 @@ public class Terrain {
 		this.tab[a][b].setJoueur(j);
 		j.setT(this);
 	}
-	public ArrayList<PNJ> DetectPNJ(Joueur P) {
-		int[] temp2 = new int[2];
-		temp2= P.getPosition();
-		int i;
-		int j;
-		i = temp2[0];
-		j = temp2[1];
-		ArrayList<PNJ> myList = new ArrayList<PNJ>();
-		int compteur=0;
-		while ( compteur <= 2) {
-			if (this.tab[i][j].getpnj() != null && compteur != 1) {
-			myList.add(tab[i][j].getpnj());
-			}
-			if (compteur ==1) {
-				if (this.tab[i][j-1].getpnj() != null) {
-					myList.add(tab[i][j-1].getpnj());
-				}
-				if (this.tab[i][j+1].getpnj() != null) {
-					myList.add(tab[i][j+1].getpnj());
-					
-				}
-				
-			if (this.tab[i+1][j].pnj != null && compteur !=1) {
-				myList.add(tab[i+1][j].getpnj());
-			}
-			}
-			compteur=compteur+1;
-			
-
-		}
-		return myList;
-		
-	}
+	
 }
