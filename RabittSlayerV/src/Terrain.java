@@ -35,11 +35,54 @@ public class Terrain {
 	      System.out.println();
 	}
 	public void placerJoueur(Joueur j) {
-		int a =j.Alea(this.taille-(this.taille+1), this.taille);
-		int b = j.Alea(this.taille-(this.taille+1), this.taille);
+		int a =j.Alea(1, 9);
+		int b = j.Alea(1,9);
 		j.setPosition(a, b);
 		this.tab[a][b].setJoueur(j);
 		j.setT(this);
 	}
-	
+	public void placerPNJ(PNJ j) {
+		int a =j.Alea(1,9);
+		int b = j.Alea(1,9);
+		j.setPosition(a, b);
+		this.tab[a][b].setpnj(j);
+	}
+	public void DetectPNJ() {
+		Joueur P;
+		P = this.j;
+		int[] temp2 = new int[2];
+		temp2[0] = P.getPosition()[0];
+		temp2[1]= P.getPosition()[1];
+		int i;
+		int j;
+		i = temp2[0];
+		j = temp2[1];
+		ArrayList<PNJ> myList = new ArrayList<PNJ>() ;
+		int compteur=0;
+		while ( compteur <1) {
+			if (this.tab[i-1][j].havepnj() == true) {
+				myList.add(tab[i-1][j].getpnj());
+			}
+				if (this.tab[i][j-1].havepnj() == true)  {
+					myList.add(tab[i][j-1].getpnj());
+				}
+				if (this.tab[i][j+1].havepnj() == true ) {
+					myList.add(tab[i][j+1].getpnj());
+					
+				}
+				
+			if (this.tab[i+1][j].havepnj() == true ) {
+				myList.add(tab[i+1][j].getpnj());
+			}
+			
+			compteur=compteur+1;
+			
+
+		}
+		P.setennemie(myList);
+		
+	}
+	public Joueur getJ() {
+		return this.j;
+	}
 }

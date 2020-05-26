@@ -3,6 +3,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Joueur {
+	private String Etat = "En forme";
 	private Terrain t;
 	private String symb = "J";
 	private int PA;
@@ -12,7 +13,7 @@ public class Joueur {
 	private int Degreaat=18;
 	public Equipement equipement[]= new Equipement[2];
 	private int[] position = new int[2];
-	private ArrayList<PNJ> ennemie = new ArrayList<PNJ>();
+	private ArrayList<PNJ> ennemie ;
 	
 	public Joueur() {
 		equipement[0]= new EpeeSimple();
@@ -127,20 +128,31 @@ public class Joueur {
 		
 	}
 	public void parcourir() {
-		int i =0;
-		for (PNJ e:ennemie) {
-			System.out.println(i+" pour :");
-			toStringPNJ(e);
-			
+		if (this.ennemie.isEmpty()== true) {
+			return;
 		}
+		int i =0;
+			for (i=0 ; i < this.ennemie.size();i++) {
+				System.out.println(i+" pour :");
+				this.ennemie.get(i).DonnetonBlaze();
+			
+			}
+		
+	}
+	public void DetectionTotale() {
+		this.t.DetectPNJ();
 	}
 	public void Attaquer() {
-		this.DetectPNJ();
 		if (this.ennemie.isEmpty() ) {
 			System.out.println("Pas d'ennemie atteignable");
 			return;
 		}
 		else {
+			System.out.println("Liste cible possible :");
+			System.out.println("Taper ");
+			this.parcourir();
+			Scanner sc = new Scanner(System.in);
+			int VD = sc.nextInt();
 			int[] a =Calcul(this.adresse);
 			int[] b = Calcul(this.equipement[0].getManiabilité());
 			int[] c = new int[2];
@@ -154,11 +166,6 @@ public class Joueur {
 			}
 			total= total+c[1];
 			System.out.println(total);
-			System.out.println("Liste cible possible :");
-			System.out.println("Taper ");
-			this.parcourir();
-			Scanner sc = new Scanner(System.in);
-			int VD = sc.nextInt();
 			this.ennemie.get(VD);
 		}
 	}
@@ -174,10 +181,9 @@ public class Joueur {
 	public ArrayList<PNJ> getEnnemie(){
 		return this.ennemie;
 	}
-	public void setennemie(ArrayList<PNJ>mechant) {
-		ennemie = new ArrayList<PNJ>();
-		for(PNJ e:mechant) {
-			this.ennemie.add(e);	
+	public void setennemie(ArrayList<PNJ>mechant) {;
+		for(int i=0 ; i<mechant.size();i++) {
+			this.ennemie.add(mechant.get(i));	
 		}
 	}
 	public void toStringPNJ(PNJ m) {
@@ -215,6 +221,12 @@ public class Joueur {
 		}
 		this.setennemie(myList);
 		
+	}
+	public String getEtat() {
+		return Etat;
+	}
+	public void setEtat(String etat) {
+		Etat = etat;
 	}
 
 	

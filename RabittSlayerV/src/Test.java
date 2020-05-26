@@ -21,8 +21,9 @@ public class Test {
 		tester.affiche();
 		j1.getStat();
 		//tester.DetectPNJ(j1);
-		j1.parcourir();
-		j1.DetectPNJ();
+		//j1.DetectPNJ();
+		//j1.parcourir();
+		j1.DetectionTotale();
 		//j1.Attaquer();
 		//Teddy.deplacement(2);
 		 

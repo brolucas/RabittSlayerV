@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public abstract class PNJ {
 	String nom ; 
@@ -46,5 +47,14 @@ public abstract class PNJ {
 	public void setPosition(int posi , int posy) {
 		this.position[0]= posi;
 		this.position[1]= posy;
+	}
+	public int Alea(int min , int max) {
+		Random random = new Random();
+		int nb;
+		nb = min+random.nextInt(max-min);
+		return nb;
+	}
+	public void DonnetonBlaze() {
+		System.out.println(this.getnom());
 	}
 }
