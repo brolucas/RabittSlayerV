@@ -28,18 +28,18 @@ public class Jeu {
 		j = temp2[1];
 		int compteur=0;
 		while ( compteur <1) {
-			if ( this.T.tab[i-1][j].havepnj() == true) {
+			if ( this.T.tab[i-1][j].getetat()==1) {
 				joueur.getEnnemie().add(this.T.tab[i-1][j].getpnj());
 			}
-				if (this.T.tab[i][j-1].havepnj() == true)  {
+				if ( this.T.tab[i-1][j].getetat()==1)  {
 					joueur.getEnnemie().add(this.T.tab[i][j-1].getpnj());
 				}
-				if (this.T.tab[i][j+1].havepnj() == true ) {
+				if ( this.T.tab[i-1][j].getetat()==1) {
 					joueur.getEnnemie().add(this.T.tab[i][j+1].getpnj());
 					
 				}
 				
-			if (this.T.tab[i+1][j].havepnj() == true ) {
+			if ( this.T.tab[i-1][j].getetat()==1) {
 				joueur.getEnnemie().add(this.T.tab[i+1][j].getpnj());
 			}
 			
@@ -47,6 +47,7 @@ public class Jeu {
 			
 
 		}
+		
 		
 	}
 	public int Alea(int min , int max) {
