@@ -75,6 +75,9 @@ public class Jeu {
 			this.DetectPNJ(j1);
 			j1.Attaquer();
 		}
+		else if (temp==2) {
+			j1.deplacement();
+		}
 	}
 
 	public static void main(String[] args) {
@@ -90,12 +93,12 @@ public class Jeu {
 		Joueur[] temp2 = new Joueur[1];
 		temp2[0]=j1;
 		Jeu jeu =  new Jeu(temp2,temp);
-		while (j1.getEtat() == "En forme") {
-			jeu.T.placerJoueur(j1);
-			for (PNJ p:jeu.Pnj) {
-				jeu.T.placerPNJ(p);
-				
-			}
+		jeu.T.placerJoueur(j1);
+		for (PNJ p:jeu.Pnj) {
+			jeu.T.placerPNJ(p);
+			
+		}
+		while (true) {
 			jeu.T.affiche();
 			jeu.TourdeJeuJoueur(j1);
 		

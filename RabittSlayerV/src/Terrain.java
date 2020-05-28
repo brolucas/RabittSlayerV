@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Terrain {
 	private Joueur j;
@@ -41,48 +42,58 @@ public class Terrain {
 		this.tab[a][b].setJoueur(j);
 		j.setT(this);
 	}
+	public void deplacementJ(Joueur j) {
+		if (j.getPA() <2 ) {
+			System.out.println("PAs assez de Point d'action");
+			System.out.println("Vos PA" + j.getPA());
+		}
+		System.out.println("Taper h ou b ou g ou d");
+		Scanner sc = new Scanner(System.in);
+		String direction = sc.next();
+		int x = j.getPosition()[0];
+		int y = j.getPosition()[1];
+		if (direction== "h") {
+			this.tab[x-1][y].setJoueur(j);
+			this.tab[j.getPosition()[x]][y].delJ();
+			j.setPosition(x-1,y);
+			this.tab[x-1][y].setSymbJ(j);
+			
+		}
+		else if(direction == "b") {
+			this.tab[x+1][y].setJoueur(j);
+			this.tab[j.getPosition()[x]][y].delJ();
+			j.setPosition(x+1,y);
+			this.tab[x+1][y].setSymbJ(j);;
+			
+		}
+		else if (direction == "g") {
+			this.tab[x][y-1].setJoueur(j);
+			this.tab[j.getPosition()[x]][y].delJ();
+			j.setPosition(x,y-1);
+			this.tab[x][y-1].setSymbJ(j);;
+			
+		}
+		else if (direction == "d") {
+			this.tab[x][y+1].setJoueur(j);
+			this.tab[j.getPosition()[x]][y].delJ();
+			j.setPosition(x,y+1);
+			this.tab[x][y+1].setSymbJ(j);;
+		}
+		System.out.println("Je me deplace" );
+		j.setPA(j.getPA()-2);
+		System.out.println("Il vous reste :" + (j.getPA()) +"PA" );
+		
+	}
+	
 	public void placerPNJ(PNJ j) {
 		int a =j.Alea(1,9);
 		int b = j.Alea(1,9);
 		j.setPosition(a, b);
 		this.tab[a][b].setpnj(j);
 	}
-	public void DetectPNJ() {
-		Joueur P;
-		P = this.j;
-		int[] temp2 = new int[2];
-		temp2[0] = P.getPosition()[0];
-		temp2[1]= P.getPosition()[1];
-		int i;
-		int j;
-		i = temp2[0];
-		j = temp2[1];
-		ArrayList<PNJ> myList = new ArrayList<PNJ>() ;
-		int compteur=0;
-		while ( compteur <1) {
-			if (this.tab[i-1][j].havepnj() == true) {
-				myList.add(tab[i-1][j].getpnj());
-			}
-				if (this.tab[i][j-1].havepnj() == true)  {
-					myList.add(tab[i][j-1].getpnj());
-				}
-				if (this.tab[i][j+1].havepnj() == true ) {
-					myList.add(tab[i][j+1].getpnj());
-					
-				}
-				
-			if (this.tab[i+1][j].havepnj() == true ) {
-				myList.add(tab[i+1][j].getpnj());
-			}
-			
-			compteur=compteur+1;
-			
-
-		}
-		P.setennemie(myList);
-		
-	}
 	public Joueur getJ() {
 		return this.j;
 	}
+
+	
 }

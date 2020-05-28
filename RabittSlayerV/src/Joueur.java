@@ -86,9 +86,46 @@ public class Joueur {
 	public void setSymb(String symb) {
 		this.symb = symb;
 	}
-	public void deplacement(int nbr) {
+	public void deplacement() {
+		if (this.PA <2 ) {
+			System.out.println("PAs assez de Point d'action");
+			System.out.println("Vos PA" + this.getPA());
+		}
+		System.out.println("Taper h ou b ou g ou d");
+		Scanner sc = new Scanner(System.in);
+		String direction = sc.next();
+		int x = this.getPosition()[0];
+		int y = this.getPosition()[1];
+		if (direction== "h") {
+			this.t.tab[x-1][y].setJoueur(this);
+			this.t.tab[this.getPosition()[x]][y].delJ();
+			this.setPosition(x-1,y);
+			this.t.tab[x-1][y].maj();
+			
+		}
+		else if(direction == "b") {
+			this.t.tab[x+1][y].setJoueur(this);
+			this.t.tab[this.getPosition()[x]][y].delJ();
+			this.setPosition(x+1,y);
+			this.t.tab[x+1][y].maj();
+			
+		}
+		else if (direction == "g") {
+			this.t.tab[x][y-1].setJoueur(this);
+			this.t.tab[this.getPosition()[x]][y].delJ();
+			this.setPosition(x,y-1);
+			this.t.tab[x][y-1].maj();
+			
+		}
+		else if (direction == "d") {
+			this.t.tab[x][y+1].setJoueur(this);
+			this.t.tab[this.getPosition()[x]][y].delJ();
+			this.setPosition(x,y+1);
+			this.t.tab[x][y+1].maj();
+		}
 		System.out.println("Je me deplace" );
-		System.out.println("Il vous reste :" + (this.getPA()-nbr) +"PA" );
+		this.PA = this.PA - 2;
+		System.out.println("Il vous reste :" + (this.getPA()) +"PA" );
 		
 	}
 	public String toString(int i ) {
@@ -148,11 +185,17 @@ public class Joueur {
 		}
 	
 	public void Attaquer() {
+			if (this.PA <3) {
+				System.out.println("Pas assez de point d'action");
+				System.out.println(this.PA);
+				return;
+			}
 			if(this.test()==false) {
 				System.out.println("Pas d'ennemie atteignable");
 				return;
 			}
 			else {
+				System.out.println("******************************* Phase de Combat ***********************************");
 				System.out.println("Liste cible possible :");
 				System.out.println("Taper ");
 				boolean temp;
@@ -175,8 +218,20 @@ public class Joueur {
 				}
 				total= total+c[1];
 				System.out.println(total);
-				this.ennemie.get(VD);
+				PNJ soumisattaque;
+				soumisattaque = this.ennemie.get(VD);
+				System.out.println("Esquive de l'adversaire : " + soumisattaque.getesq());
+				if (soumisattaque.getesq() < total) {
+					soumisattaque.prendredegat(this);
+				}
+				else {
+					System.out.println("L'ennemie Bloque le coup");
+				}
+				
+				
 			}
+			System.out.println("***************************FIN DE PHASE DE COMBAT**************************");
+			this.PA = this.PA - 3;
 		}
 	
 
@@ -204,6 +259,9 @@ public class Joueur {
 	}
 	public void setEtat(String etat) {
 		Etat = etat;
+	}
+	public int getForce() {
+		return this.Force;
 	}
 
 	

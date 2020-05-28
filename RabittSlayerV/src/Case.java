@@ -22,6 +22,7 @@ public class Case  {
 		this.Symb = j.getSymb();
 		this.i = i;
 		this.i = y;
+		this.etat=1;
 	
 	}
 	public Case(PNJ pnj, int i, int y) {
@@ -65,6 +66,29 @@ public class Case  {
 	}
 	public int getetat() {
 		return this.etat;
+	}
+	public void delJ() {
+		this.j = null;
+	}
+	public void maj() {
+		if (this.j != null) {
+			this.setSymbJ(this.j);
+			this.etat= 1;
+		}
+		if (this.pnj != null) {
+			this.setSymb(this.pnj);
+			this.etat=1;
+		}
+		else {
+			this.etat = 0;
+		}
+		
+	}
+	public void setSymbJ(Joueur j) {
+		this.Symb = j.getSymb();
+	}
+	public void setSymb(PNJ p) {
+		this.Symb = p.getSymb();
 	}
 	
 	
