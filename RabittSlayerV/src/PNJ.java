@@ -1,9 +1,16 @@
+import java.io.Serializable;
 import java.util.Random;
+import java.util.Scanner;
 
-public abstract class PNJ {
+import javax.persistence.*;
+@Entity
+public abstract class PNJ implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id @GeneratedValue
+	private long id;
 	int nivBless =0;
 	String nom ; 
-	String etat = "En forme";
+	boolean mort = false;
 	String symb;
 	int ini ;
 	int att;
@@ -11,6 +18,10 @@ public abstract class PNJ {
 	int def;
 	int deg;
 	private int[] position = new int[2];
+	
+	public int[] getpos() {
+		return this.position;
+	}
 	
 	public String getnom() { return this.nom; }
 	protected void setnom(String type) {this.nom = type;}
@@ -22,11 +33,11 @@ public abstract class PNJ {
 	}
 	public void deplacement(int nbr) {
 	}
-	public String getEtat() {
-		return etat;
+	public boolean getMort() {
+		return mort;
 	}
-	public void setEtat(String etat) {
-		this.etat = etat;
+	public void setMort(boolean etat) {
+		this.mort = etat;
 	}
 	public int getini() { return this.ini; }
 	protected void setini(int type) {this.ini = type;}
@@ -76,9 +87,13 @@ public abstract class PNJ {
 		System.out.println("Total defence PNJ");
 		int temp = this.getdef();
 		System.out.println(temp);
-		int calc =temp - total;
+		if (total < temp) {
+			System.out.println("Le coup est bloquer");
+			return;
+		}
+		int calc = total- temp;
 		int compteur=0;
-		while (calc >0) {
+		while (true) {
 			if (calc<3 ) {
 				break;
 			}
@@ -86,10 +101,37 @@ public abstract class PNJ {
 			compteur = compteur+1;
 		}
 		this.setnivBless(compteur);
+		System.out.println("Niveau de blessure :" +this.nivBless);
+		}
 		
-	}
+	
 	public void setnivBless(int i) {
 		this.nivBless = this.nivBless + i;
+		
+	}
+
+	public void Attaquer(Joueur j) {
+		int[] a =j.Calcul(j.getAdresse());
+		int[] b = j.Calcul(j.equipement[1].getEncombrement());
+		int[] c = new int[2];
+		c[0]= a[0]+b[0];
+		c[1]= a[1]+b[1];
+		System.out.println(j.toString(c[0])+" D + "+j.toString(c[1]));
+		int esq=0;
+		while (c[0]>0) {
+			esq = esq+ Alea(1,6);
+			c[0]=c[0]-1;
+		}
+		esq= esq+c[1];
+		int attaque = this.att;
+		if (attaque > esq) {
+			System.out.println("Vous êtes touché");
+			j.prendredegat(this);
+			
+		}
+		else {
+			System.out.println("coup esquivé");
+		}
 		
 	}
 }

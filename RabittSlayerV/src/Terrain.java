@@ -1,8 +1,20 @@
+
+import java.io.Serializable;
+import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Terrain {
+
+@Entity
+public class Terrain implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id @GeneratedValue
+	private long id;
 	private Joueur j;
 	private int taille;
 	public  Case tab[][] ;
@@ -16,6 +28,10 @@ public class Terrain {
 			for (int j=0;j < tab[i].length; j++) {
 				if(i==0 || i== taille-1 || j==0 || j==taille-1) { 
 					tab[i][j]= new Case("#",i,j);	
+				}
+				else if (i==1 && j==8) {
+					tab[i][j]= new Case("S",i,j);
+					tab[i][j].setetat();
 				}
 				else {
 					tab[i][j]= new Case(i,j);				
@@ -36,64 +52,71 @@ public class Terrain {
 	      System.out.println();
 	}
 	public void placerJoueur(Joueur j) {
-		int a =j.Alea(1, 9);
-		int b = j.Alea(1,9);
+		int a;
+		int b;
+		 a =j.Alea(1, 8);
+		 b = j.Alea(1,8);
 		j.setPosition(a, b);
 		this.tab[a][b].setJoueur(j);
 		j.setT(this);
 	}
-	public void deplacementJ(Joueur j) {
-		if (j.getPA() <2 ) {
-			System.out.println("PAs assez de Point d'action");
-			System.out.println("Vos PA" + j.getPA());
-		}
-		System.out.println("Taper h ou b ou g ou d");
-		Scanner sc = new Scanner(System.in);
-		String direction = sc.next();
-		int x = j.getPosition()[0];
-		int y = j.getPosition()[1];
-		if (direction== "h") {
-			this.tab[x-1][y].setJoueur(j);
-			this.tab[j.getPosition()[x]][y].delJ();
-			j.setPosition(x-1,y);
-			this.tab[x-1][y].setSymbJ(j);
-			
-		}
-		else if(direction == "b") {
-			this.tab[x+1][y].setJoueur(j);
-			this.tab[j.getPosition()[x]][y].delJ();
-			j.setPosition(x+1,y);
-			this.tab[x+1][y].setSymbJ(j);;
-			
-		}
-		else if (direction == "g") {
-			this.tab[x][y-1].setJoueur(j);
-			this.tab[j.getPosition()[x]][y].delJ();
-			j.setPosition(x,y-1);
-			this.tab[x][y-1].setSymbJ(j);;
-			
-		}
-		else if (direction == "d") {
-			this.tab[x][y+1].setJoueur(j);
-			this.tab[j.getPosition()[x]][y].delJ();
-			j.setPosition(x,y+1);
-			this.tab[x][y+1].setSymbJ(j);;
-		}
-		System.out.println("Je me deplace" );
-		j.setPA(j.getPA()-2);
-		System.out.println("Il vous reste :" + (j.getPA()) +"PA" );
-		
-	}
-	
 	public void placerPNJ(PNJ j) {
-		int a =j.Alea(1,9);
-		int b = j.Alea(1,9);
+		int a =j.Alea(1,7);
+		int b = j.Alea(1,7);
 		j.setPosition(a, b);
 		this.tab[a][b].setpnj(j);
 	}
 	public Joueur getJ() {
 		return this.j;
 	}
-
-	
+	public boolean deplacementpossH(Joueur j) {
+		int x = j.getPosition()[0];
+		int y = j.getPosition()[1];
+		if (j.gett().tab[x-1][y].etat==0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+			
+	}
+	public boolean deplacementpossB(Joueur j) {
+		int x = j.getPosition()[0];
+		int y = j.getPosition()[1];
+		if (j.gett().tab[x+1][y].etat==0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+			
+	}
+	public boolean deplacementpossG(Joueur j) {
+		int x = j.getPosition()[0];
+		int y = j.getPosition()[1];
+		if (j.gett().tab[x][y-1].etat==0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+			
+	}
+	public boolean deplacementpossD(Joueur j) {
+		int x = j.getPosition()[0];
+		int y = j.getPosition()[1];
+		if (j.gett().tab[x][y+1].etat==0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+			
+	}
+	public void removePNJ(PNJ p) {
+		int a =p.getPosition()[0];
+		int b =p.getPosition()[1];
+		this.tab[a][b].del();
+		
+	}
 }
